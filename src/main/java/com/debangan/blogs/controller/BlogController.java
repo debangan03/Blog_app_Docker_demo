@@ -26,6 +26,7 @@ public class BlogController {
     @GetMapping
     public ResponseEntity<?> getBlogs(){
         try{
+            log.info("get blogs api");
             List<Blog> allBlogs = blogService.getAllBlogs();
             return new ResponseEntity<>(allBlogs, HttpStatus.OK);
         } catch (RuntimeException e) {
@@ -40,6 +41,7 @@ public class BlogController {
     @PostMapping
     public ResponseEntity<?> postBlog(@RequestBody Blog blog){
         try{
+            log.info("post blogs api");
             Blog newBlogs = blogService.addNewBlog(blog);
             return new ResponseEntity<>(newBlogs, HttpStatus.CREATED);
         } catch (RuntimeException e) {
@@ -52,6 +54,7 @@ public class BlogController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEntry(@PathVariable int id){
+        log.info("delete blogs api");
         blogService.deleteEntry(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
