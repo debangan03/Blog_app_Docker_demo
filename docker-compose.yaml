@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres-db:
-    image: postgres:latest
+    image: debangan03/postgres-db:latest  # Use shared PostgreSQL image
     container_name: postgres-db
     restart: always
     environment:
@@ -17,7 +17,7 @@ services:
       - my-network
 
   blog-app:
-    build: .
+    image: debangan03/blog-app:latest  # Use the pushed Docker Hub image
     container_name: blog-app
     restart: always
     depends_on:
@@ -37,3 +37,4 @@ volumes:
 
 networks:
   my-network:
+
