@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: blog-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: blog-app
@@ -16,7 +16,7 @@ spec:
         - name: blog-app
           image: debangan03/blog-app:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://postgres-service:5432/blogdb"
@@ -34,5 +34,5 @@ spec:
     app: blog-app
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8081
+      targetPort: 8081
