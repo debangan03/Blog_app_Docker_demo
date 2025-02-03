@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres-db:
-    image: debangan03/postgres-db:latest  # Use shared PostgreSQL image
+    image: debangan03/postgres-db:latest
     container_name: postgres-db
     restart: always
     environment:
