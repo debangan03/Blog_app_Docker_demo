@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: postgres-db
 spec:
-  replicas: 3
+  replicas: 1  # You can change this to 3 for high availability
   selector:
     matchLabels:
       app: postgres-db
@@ -36,3 +36,4 @@ spec:
     - protocol: TCP
       port: 5432
       targetPort: 5432
+  type: LoadBalancer  # This will expose the service externally
