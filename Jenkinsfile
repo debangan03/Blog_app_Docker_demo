@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'debangan03' // Jenkins credentials ID for Docker Hub
+        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials' // Jenkins credentials ID for Docker Hub
         DOCKER_IMAGE_TAG = "latest"
         SPRING_APP_IMAGE = "debangan03/blog-app"
         POSTGRES_IMAGE = "debangan03/postgres-db"
+        SONARQUBE_ENV = 'SonarQube' // Name of your SonarQube server in Jenkins configuration
     }
 
     stages {
@@ -25,12 +26,31 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
+        stage('SonarQube Analysis') {
             steps {
-                script {
-                    // Build Docker images for the blog app and PostgreSQL
-                    bat "docker build -t ${SPRING_APP_IMAGE}:${DOCKER_IMAGE_TAG} -f Dockerfile ."
-                    bat "docker build -t ${POSTGRES_IMAGE}:${DOCKER_IMAGE_TAG} -f Dockerfile.postgres ."
+                withSonarQubeEnv(SONARQUBE_ENV) {
+                    script {
+                        bat 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            parallel {
+                stage('Build Spring App Image') {
+                    steps {
+                        script {
+                            bat "docker build -t ${SPRING_APP_IMAGE}:${DOCKER_IMAGE_TAG} -f Dockerfile ."
+                        }
+                    }
+                }
+                stage('Build PostgreSQL Image') {
+                    steps {
+                        script {
+                            bat "docker build -t ${POSTGRES_IMAGE}:${DOCKER_IMAGE_TAG} -f Dockerfile.postgres ."
+                        }
+                    }
                 }
             }
         }
@@ -39,7 +59,7 @@ pipeline {
             steps {
                 script {
                     // Login to Docker Hub
-                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'debangan03', passwordVariable: 'Debangan@2003')]) {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         bat """
                         echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
                         """
@@ -61,7 +81,6 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-
                     // Deploy to Kubernetes using kubectl
                     bat "kubectl apply -f deployment_pg.yaml"
                     bat "kubectl apply -f deployment_app.yaml"

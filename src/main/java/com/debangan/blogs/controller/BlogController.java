@@ -23,37 +23,36 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
+
     @GetMapping
-    public ResponseEntity<?> getBlogs(){
+    public ResponseEntity<Object> getBlogs(){
         try{
             log.info("get blogs api");
             List<Blog> allBlogs = blogService.getAllBlogs();
             return new ResponseEntity<>(allBlogs, HttpStatus.OK);
         } catch (RuntimeException e) {
             log.error(String.valueOf(e));
-           // throw new RuntimeException(e);
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
 
     }
 
     @PostMapping
-    public ResponseEntity<?> postBlog(@RequestBody Blog blog){
+    public ResponseEntity<Object> postBlog(@RequestBody Blog blog){
         try{
             log.info("post blogs api");
             Blog newBlogs = blogService.addNewBlog(blog);
             return new ResponseEntity<>(newBlogs, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             log.error(String.valueOf(e));
-            // throw new RuntimeException(e);
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEntry(@PathVariable int id){
+    public ResponseEntity<Object> deleteEntry(@PathVariable int id){
         log.info("delete blogs api");
         blogService.deleteEntry(id);
 
