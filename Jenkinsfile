@@ -231,14 +231,15 @@ pipeline {
             }
         }
         success {
-            emailext subject: "Jenkins Pipeline: SUCCESS",
-                     body: "The Jenkins pipeline has completed successfully.",
-                     to: "debangan2019@gmail.com"
+            mail to: "debangan2019@gmail.com",
+                 subject: "Jenkins Pipeline: SUCCESS",
+                 body: "The Jenkins pipeline has completed successfully."
         }
         failure {
-            emailext subject: "Jenkins Pipeline: FAILURE",
-                     body: "The Jenkins pipeline has failed. Please check the Jenkins job for details.",
-                     to: "debangan2019@gmail.com"
+            mail to: "debangan2019@gmail.com",
+                 subject: "Jenkins Pipeline: FAILURE",
+                 body: "The Jenkins pipeline has failed. Please check the Jenkins job for details."
         }
     }
+
 }
