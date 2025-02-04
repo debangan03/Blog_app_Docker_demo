@@ -50,7 +50,8 @@ pipeline {
                 stage('Build PostgreSQL Image') {
                     steps {
                         script {
-                            bat "docker build -t ${POSTGRES_IMAGE}:${DOCKER_IMAGE_TAG} -f Dockerfile.postgres ."
+                            bat "docker pull postgres:latest"
+                            bat "docker tag postgres:latest ${POSTGRES_IMAGE}:${DOCKER_IMAGE_TAG}"
                         }
                     }
                 }
