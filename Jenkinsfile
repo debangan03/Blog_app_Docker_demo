@@ -103,8 +103,20 @@ pipeline {
 
     post {
         always {
-            // Clean up Docker images
-            bat "docker system prune -f"
-        }
+                    script {
+                        // Clean up Docker images
+                        bat "docker system prune -f"
+                    }
+                }
+                success {
+                    emailext subject: "Jenkins Pipeline: SUCCESS",
+                             body: "The Jenkins pipeline has completed successfully.",
+                             to: "your-email@example.com"
+                }
+                failure {
+                    emailext subject: "Jenkins Pipeline: FAILURE",
+                             body: "The Jenkins pipeline has failed. Please check the Jenkins job for details.",
+                             to: "your-email@example.com"
+                }
     }
 }
