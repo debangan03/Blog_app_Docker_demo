@@ -145,7 +145,11 @@ pipeline {
         stage('Build Application') {
             steps {
                 script {
-                    sh './mvnw clean install'
+
+                    sh '''
+                             chmod +x mvnw
+                            ./mvnw clean install
+                       '''
                 }
             }
         }
