@@ -30,11 +30,13 @@ pipeline {
             steps {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     script {
-                        bat 'mvnw.cmd clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                        bat 'mvnw.cmd clean install' // Ensure code is compiled before analysis
+                        bat 'mvnw.cmd org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.java.binaries=target/classes'
                     }
                 }
             }
         }
+
 
         stage('Build Docker Images') {
             parallel {
