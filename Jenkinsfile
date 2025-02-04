@@ -156,13 +156,16 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(SONARQUBE_ENV) {
+                withSonarQubeEnv('SonarQube') {
                     script {
-                        sh './mvnw clean verify sonar:sonar'
+                        withCredentials([string(credentialsId: 'sq1', variable: 'SONAR_TOKEN')]) {
+                            sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.java.binaries=target/classes'
+                        }
                     }
                 }
             }
         }
+
 
         stage('Build Docker Images') {
             parallel {
