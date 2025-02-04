@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     script {
-                        bat 'mvnw.cmd sonar:sonar'
+                        bat 'mvnw.cmd clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                     }
                 }
             }
@@ -78,25 +78,25 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    // Deploy to Kubernetes using kubectl
-                    bat "kubectl apply -f deployment_pg.yaml"
-                    bat "kubectl apply -f deployment_app.yaml"
-                }
-            }
-        }
-
-        stage('Verify Deployment') {
-            steps {
-                script {
-                    // Verify that the pods are running correctly
-                    bat "kubectl get pods"
-                }
-            }
-        }
-    }
+//         stage('Deploy to Kubernetes') {
+//             steps {
+//                 script {
+//                     // Deploy to Kubernetes using kubectl
+//                     bat "kubectl apply -f deployment_pg.yaml"
+//                     bat "kubectl apply -f deployment_app.yaml"
+//                 }
+//             }
+//         }
+//
+//         stage('Verify Deployment') {
+//             steps {
+//                 script {
+//                     // Verify that the pods are running correctly
+//                     bat "kubectl get pods"
+//                 }
+//             }
+//         }
+//     }
 
     post {
         always {
