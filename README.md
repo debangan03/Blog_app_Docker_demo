@@ -143,4 +143,5 @@ These variables can be modified in the **`docker-compose.yml`** file as per requ
 
 ## Conclusion
 This **Blog App** provides a simple and scalable backend service for managing blog posts using **Spring Boot**, **PostgreSQL**, and **Docker**. With containerization, the application can be easily deployed and managed across different environments.
-
+## Author
+Debangan Bhattacharyya
