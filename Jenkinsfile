@@ -215,9 +215,9 @@ pipeline {
     }
 
     post {
-        always {
-            sh "docker system prune -f"
-        }
+        // always {
+        //     sh "docker system prune -f"
+        // }
         success {
             mail to: "debangan2019@gmail.com",
                  subject: "Jenkins Pipeline: SUCCESS",
