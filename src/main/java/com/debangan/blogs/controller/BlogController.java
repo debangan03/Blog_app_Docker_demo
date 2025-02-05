@@ -3,16 +3,16 @@ package com.debangan.blogs.controller;
 
 import com.debangan.blogs.model.Blog;
 import com.debangan.blogs.service.BlogService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/blog")
 public class BlogController {
@@ -21,8 +21,8 @@ public class BlogController {
 
 
 
-    @Autowired
-    private BlogService blogService;
+
+    private final BlogService blogService;
 
     @GetMapping
     public ResponseEntity<Object> getBlogs(){
@@ -52,10 +52,10 @@ public class BlogController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteEntry(@PathVariable int id){
+    public ResponseEntity<String> deleteEntry(@PathVariable int id){
         log.info("delete blogs api");
         blogService.deleteEntry(id);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("successfully deleted",HttpStatus.OK);
     }
 }
