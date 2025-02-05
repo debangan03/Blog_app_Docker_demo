@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Blog API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .api-endpoints {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .api-endpoints ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .api-endpoints li {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the Blog API</h1>
+    <p>
+        This API allows users to manage their blog posts efficiently. You can create, retrieve, and delete blog posts
+        using the available endpoints.
+    </p>
+
+    <div class="api-endpoints">
+        <h3>Available API Endpoints:</h3>
+        <ul>
+            <li><strong>GET</strong> /api/blog - Fetch all blog posts</li>
+            <li><strong>POST</strong> /api/blog - Create a new blog post</li>
+            <li><strong>DELETE</strong> /api/blog/{id} - Delete a blog post by ID</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Developed by Debangan | <a href="https://github.com/debangan03/Blog_app_Docker_demo" target="_blank">GitHub Repository</a></p>
+    </div>
+</div>
+</body>
+</html>
